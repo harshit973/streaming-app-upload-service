@@ -1,4 +1,5 @@
 import AWS from "aws-sdk";
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -17,14 +18,13 @@ const uploadFileToS3 = async (req, res) => {
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   });
 
-  let fileName = `${new Date().getTime()}_${file.originalname}`
+  let fileName = `${new Date().getTime()}_${file.originalname}`;
 
   const params = {
     Bucket: process.env.AWS_BUCKET,
     Key: fileName,
     Body: file.buffer,
   };
-
   const s3 = new AWS.S3();
   s3.upload(params, (err, data) => {
     if (err) {

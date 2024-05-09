@@ -1,7 +1,8 @@
 import express from "express"
-import uploadRouter from './routes/upload.route.js'
+import uploadRouter from "./router/uploadRouter.js";
 import dotenv from "dotenv"
 import cors from "cors"
+import kafkaPublisherRouter from "./router/kafkaRouter.js";
 
 dotenv.config();
 const app = express();
@@ -18,6 +19,7 @@ app.get('/', (req, res) => {
    res.send('HHLD YouTube')
 })
 
+app.use("/publish", kafkaPublisherRouter);
 
 app.listen(port, () => {
    console.log(`Server is listening at http://localhost:${port}`);

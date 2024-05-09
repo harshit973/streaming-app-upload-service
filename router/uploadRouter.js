@@ -6,6 +6,14 @@ const upload = multer();
 
 const router = express.Router();
 
-router.post('/', upload.single('file'), uploadFileToS3);
+router.post(
+  "/",
+  upload.fields([
+    { name: "chunk" },
+    { name: "totalChunks" },
+    { name: "chunkIndex" },
+  ]),
+  uploadFileToS3
+);
 
 export default router
